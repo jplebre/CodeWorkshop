@@ -1,5 +1,6 @@
 # Code Workshop
-A six week workshop on software development
+
+This is the August 2015 session of a six week workshop on software development.
 
 ## Introduction
 This workshop is designed to take programmers from writing primarily imperative code (Ifs, Loops, Variables) to higher level abstractions offered by Object Oriented programming.
