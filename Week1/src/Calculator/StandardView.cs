@@ -7,6 +7,7 @@ namespace NoIfCalc {
   public partial class StandardView : Form {
       string currentValue;
       string secondaryDisplay;
+      bool hasEqualsBeenPressed = false;
       List<int> inputNumbers = new List<int>();
       List<char> operators = new List<char>();
 
@@ -51,10 +52,20 @@ namespace NoIfCalc {
 
     private void EqualsButton_Click(object sender, EventArgs e) 
     {
-        currentValue = CalculateOperations(inputNumbers, operators).ToString();
-        Display.Text = currentValue;
-        inputNumbers.Clear();
-        operators.Clear();
+        if (inputNumbers.Count == 0) return;
+
+        if (int.Parse(currentValue) != 0) inputNumbers.Add(int.Parse(currentValue));
+        else inputNumbers.Add(inputNumbers[inputNumbers.Count - 1]);
+
+        operators.Add(operators[operators.Count - 1]);
+
+        secondaryDisplay = MergeLists(inputNumbers, operators);
+        SecondaryDisplay.Text = secondaryDisplay;
+
+        currentValue = "0";
+        var toDisplay = CalculateOperations(inputNumbers, operators).ToString();
+        SecondaryDisplay.Text = "";
+        Display.Text = toDisplay;
     }
 
     private void PlusMinusButton_Click(object sender, EventArgs e) 
@@ -64,7 +75,11 @@ namespace NoIfCalc {
 
     private void CancelButton_Click(object sender, EventArgs e) 
     {
-      SecondaryDisplay.Text = "Handle Cancel Not Implemented";
+        inputNumbers.Clear();
+        operators.Clear();
+        currentValue = "0";
+        SecondaryDisplay.Text = "";
+        Display.Text = currentValue;
     }
 
     private void OperationBehaviour(char operationSymbol)
@@ -91,6 +106,7 @@ namespace NoIfCalc {
 
     private int CalculateOperations(IList<int> number, IList<char> operators)
     {
+
         int answer = number[0];
 
         for (int i = 1; i < number.Count; i++ )
