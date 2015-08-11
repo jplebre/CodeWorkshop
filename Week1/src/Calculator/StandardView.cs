@@ -1,50 +1,123 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NoIfCalc {
   public partial class StandardView : Form {
+      string currentValue;
+      string secondaryDisplay;
+      List<int> inputNumbers = new List<int>();
+      List<char> operators = new List<char>();
 
     public StandardView() {
       InitializeComponent();
+      currentValue = Display.Text;
     }
 
     private void DigitButton_Click(object sender, EventArgs e) {
       var button = sender as Button;
       var digit = Int16.Parse(button.Text);
 
-      SecondaryDisplay.Text = "Handle Digit Not Implemented";
+      if (currentValue == "0") currentValue = digit.ToString();
+      else currentValue += digit.ToString();
+      Display.Text = currentValue;
     }
 
-    private void DecimalButton_Click(object sender, EventArgs e) {
-      SecondaryDisplay.Text = "Handle Decimal Not Implemented";
+    private void DecimalButton_Click(object sender, EventArgs e) 
+    {
+        SecondaryDisplay.Text = "Handle Equals Not Implemented";
     }
 
-    private void DivideButton_Click(object sender, EventArgs e) {
-      SecondaryDisplay.Text = "Handle Divide Not Implemented";
+    private void DivideButton_Click(object sender, EventArgs e) 
+    {
+        OperationBehaviour('/');
     }
 
-    private void MultiplyButton_Click(object sender, EventArgs e) {
-      SecondaryDisplay.Text = "Handle Multiply Not Implemented";
+    private void MultiplyButton_Click(object sender, EventArgs e) 
+    {
+        OperationBehaviour('*');
     }
 
-    private void SubtractButton_Click(object sender, EventArgs e) {
-      SecondaryDisplay.Text = "Handle Subtract Not Implemented";
+    private void SubtractButton_Click(object sender, EventArgs e) 
+    {
+        OperationBehaviour('-');
     }
 
-    private void AddButton_Click(object sender, EventArgs e) {
-      SecondaryDisplay.Text = "Handle Add Not Implemented";
+    private void AddButton_Click(object sender, EventArgs e) 
+    {
+        OperationBehaviour('+');
     }
 
-    private void EqualsButton_Click(object sender, EventArgs e) {
-      SecondaryDisplay.Text = "Handle Equals Not Implemented";
+    private void EqualsButton_Click(object sender, EventArgs e) 
+    {
+        currentValue = CalculateOperations(inputNumbers, operators).ToString();
+        Display.Text = currentValue;
+        inputNumbers.Clear();
+        operators.Clear();
     }
 
-    private void PlusMinusButton_Click(object sender, EventArgs e) {
+    private void PlusMinusButton_Click(object sender, EventArgs e) 
+    {
       SecondaryDisplay.Text = "Handle Plus/Minus Not Implemented";
     }
 
-    private void CancelButton_Click(object sender, EventArgs e) {
+    private void CancelButton_Click(object sender, EventArgs e) 
+    {
       SecondaryDisplay.Text = "Handle Cancel Not Implemented";
+    }
+
+    private void OperationBehaviour(char operationSymbol)
+    {
+        inputNumbers.Add(int.Parse(currentValue));
+        operators.Add(operationSymbol);
+        secondaryDisplay = MergeLists(inputNumbers,operators);
+        SecondaryDisplay.Text = secondaryDisplay;
+
+        currentValue = "0";
+        var toDisplay = CalculateOperations(inputNumbers, operators).ToString();
+        Display.Text = toDisplay;
+    }
+
+    private string MergeLists(IList<int> number, IList<char> operators)
+    {
+        string result = "";
+        for (int i = 0; i<number.Count; i++)
+        {
+            result += number[i] + " " + operators[i] + " ";
+        }
+        return result;
+    }
+
+    private int CalculateOperations(IList<int> number, IList<char> operators)
+    {
+        int answer = number[0];
+
+        for (int i = 1; i < number.Count; i++ )
+        {
+            int operandus = number[i];
+
+            if (operators[i-1] == '+')
+            {
+                answer += operandus;
+            }
+            else if (operators[i-1] == '-')
+            {
+                answer -= operandus;
+            }
+            else if (operators[i-1] == '/')
+            {
+                if (answer == 0) answer = 0;
+                else answer = answer / operandus;
+            }
+            else if (operators[i-1] == '*')
+            {
+                if (answer == 0) answer = 0;
+                else answer = answer * operandus; 
+            }
+        }
+
+        return answer;
     }
   }
 }
