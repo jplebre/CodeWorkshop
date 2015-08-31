@@ -15,9 +15,9 @@ Ultimately, the approach we'll take this week will break down. When it does we'l
 
 This week we'll ignore the SecondaryDisplay and the Arithmetic Operations.
 
-1. Examine 'StandardView.cs' and note that all the logic of the calculator has been moved to a Calculator class. The 'View' simple passes button clicks to the Calculator. The Calculator communicates back to the View via an event that the view handles to update the display.
+* Examine 'StandardView.cs' and note that all the logic of the calculator has been moved to a Calculator class. The 'View' simple passes button clicks to the Calculator. The Calculator communicates back to the View via an event that the view handles to update the display.
 
-2. Examine 'Calculator.cs' and note that it holds a reference to a 'CalculatorState'. Each time a button click is handled the CalculatorState state changes itself.
+* Examine 'Calculator.cs' and note that it holds a reference to a 'CalculatorState'. Each time a button click is handled the CalculatorState state changes itself.
 
 <pre>
 public void Zero()
@@ -26,11 +26,11 @@ public void Zero()
 }
 </pre>
 
-3. In calculatorState.cs there are four commented sections with instructions for the code you need to write.
+* In calculatorState.cs there are four commented sections with instructions for the code you need to write.
 
 When you implement the missing sections you will have the entering of numbers including decimals working correctly.
 
-4. Implement the Negate method in ComputerState and have it prepend a '-' to the display.
+* Implement the Negate method in ComputerState and have it prepend a '-' to the display.
 
 Attempt to use a state change to remove the '-' the next time negate is clicked.
 
