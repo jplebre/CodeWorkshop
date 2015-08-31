@@ -26,12 +26,6 @@ public void Zero()
 }
 </pre>
 
-* In calculatorState.cs there are four commented sections with instructions for the code you need to write.
+* In calculatorState.cs there are four commented sections with instructions for the code you need to write. When you implement the missing sections you will have the entering of numbers including decimals working correctly.
 
-When you implement the missing sections you will have the entering of numbers including decimals working correctly.
-
-* Implement the Negate method in ComputerState and have it prepend a '-' to the display.
-
-Attempt to use a state change to remove the '-' the next time negate is clicked.
-
-Note the difficulty in toggling the 'Negation State' when it is implemented in the same Calculator State object as numbers and decimals.
+* Implement the Negate method in ComputerState and have it prepend a '-' to the display. Attempt to use a state change to remove the '-' the next time negate is clicked. Note the difficulty in toggling the 'Negation State' when it is implemented in the same Calculator State object as numbers and decimals.
