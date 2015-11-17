@@ -164,7 +164,7 @@
             this.DigitButton0.TabIndex = 10;
             this.DigitButton0.Text = "0";
             this.DigitButton0.UseVisualStyleBackColor = true;
-            this.DigitButton0.Click += new System.EventHandler(this.DigitButton_Click);
+            this.DigitButton0.Click += new System.EventHandler(this.ZeroButton_Click);
             // 
             // DecimalButton
             // 
